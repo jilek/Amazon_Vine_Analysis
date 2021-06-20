@@ -14,7 +14,7 @@ In this project, we had access to approximately 50 datasets. Each one contains r
   - Amazon AWS
     - S3
     - RDS with PostgreSQL
-    - pgAdmin
+  - pgAdmin
 
 A detailed summary of the Amazon Review datasets for all categories is shown in **Appendix A**.
 
@@ -43,7 +43,7 @@ Table 1 - Runtimes for two sample datasets
 
 #### Deliverable 2 - Determine Bias of Vine Reviews
 
-Using our knowledge of PySpark, Pandas, or SQL, we determined if there is any bias towards reviews that were written as part of the Vine program. For this analysis, we determined if having a paid Vine review makes a difference in the percentage of 5-star reviews. Note that many of the datasets for Amazon review categories were missing Vines data, which made the calculating bias statistics impossible for those categories (see **Appendix A**)
+Using our knowledge of PySpark, we determined if there is any bias towards reviews that were written as part of the Vine program. For this analysis, we determined if having a paid Vine review makes a difference in the percentage of 5-star reviews. Note that many of the datasets for Amazon review categories were missing Vines data, which made the calculating bias statistics impossible for those categories (see **Appendix A**)
 
 For detailed listings and figures, please refer to **Appendix C**. In addition, the collected bias stats are shown in **Table 2** below.
 
@@ -59,7 +59,7 @@ Answers to the three questions (also shown in Table 2)
 
   - What percentage of Vine reviews were 5 stars? What percentage of non-Vine reviews were 5 stars?
 
-    For the first product category selected for analysis (Furniture), 55.85% of the Vine reviews were 5 star, and 47.34% of the non-Vine reviews were 5 star.
+    For the first product category selected for analysis (Furniture), 53.85% of the Vine reviews were 5 star, and 47.34% of the non-Vine reviews were 5 star.
 
 
 Table 2 - Final Bias Results for multiple Amazon 'category' datasets
@@ -79,9 +79,9 @@ Table 2 - Final Bias Results for multiple Amazon 'category' datasets
 
 ## Summary
 
-#### Is there any bias in Vines reviews
+#### Is there any bias in Vines reviews?
 
-As shown in Table 2 above, it appears that there is no clear bias for 5-Star ratings in Vines reviews. The complete flow was run on 8 separate Amazon product categories. Simply using the 5-Star ratings for Vines vs. Non-Vines reviews was insufficient. A more thorough analysis would have compared all of the "Star" ratings 1 through 5. In addition, limiting the analysis to reviews with more than 20 votes and helpful percentages over 50% may have caused inaccurate results.
+As shown in Table 2 above, it appears that there is no clear bias for 5-Star ratings in Vines reviews. The complete flow was run on 8 separate Amazon product categories. Simply using the 5-Star ratings for Vines vs. Non-Vines reviews was insufficient. A more thorough analysis would have compared all of the "Star" ratings 1 through 5. In addition, limiting the analysis to reviews with more than 20 votes and helpful percentages over 50% may have been too narrow of a filter to determine bias.
 
 <hr>
 
@@ -95,7 +95,7 @@ When an attempt to run through the entire flow using the Video dataset, a divide
 
 At that point all datasets were decompressed, and metrics were collected using awk & perl for each dataset as shown in Table A1 below.
 
-As shown in Table A1, we can see that many of the datasets had no Vine reviews (e.g. Digital_Music_Purchase, Digital_Software, Digital_Video_Download, Digital_Video_Games, Gift_Card, Mobile_Apps, and Video), and the large sizes of some of the seemed to make the process intractable -- at least on a weekday. A later run of the Books dataset on an early Saturday morning gave much better runtimes, as shown in Table 1 in the main body of this report. So there is clearly a great deal of variability in the 'Free Tier' of Amazon AWS.
+As shown in Table A1, we can see that many of the datasets had no Vine reviews (e.g. Digital_Music_Purchase, Digital_Software, Digital_Video_Download, Digital_Video_Games, Gift_Card, Mobile_Apps, and Video), and the large sizes of some of the datasets seemed to make the process intractable -- at least on a weekday. A later run of the Books dataset on an early Saturday morning gave much better runtimes, as shown in Table 1 in the main body of this report. So there is clearly a great deal of variability in the 'Free Tier' of Amazon AWS.
 
 Each of the categories in bold font in Table A1 were run through the entire flow. The bias findings are shown in Table 2 in the main body of this report.
 
@@ -151,7 +151,7 @@ Table A1 - Amazon Review Data statistics
 
 ## Appendx B - Use Google Colab to read and process data, then write to Amazon RDS
 
-In order to avoid cluttering the main body of this report all Listings and Figures for **Deliverable 1** are shown below in this Appendix B.
+In order to avoid cluttering the main body of this report, all Listings and Figures for **Deliverable 1** are shown here in this Appendix B.
 
 #### Set up PySpark Notebook on Google Colab
 
@@ -336,7 +336,7 @@ Listing B11 - Write 'review_id_df' into RDS
 
 ```
 # Write review_id_df to table in RDS
-# This operation took 2m 10s
+# This operation took 2m 10s for 'Furniture' category
 review_id_df.write.jdbc(url=jdbc_url, table='review_id_table', mode=mode, properties=config)
 ```
 
@@ -354,7 +354,7 @@ Listing B13 - Write 'products_df' into RDS
 
 ```
 # Write products_df to table in RDS
-# This operation took 1m 15s
+# This operation took 1m 15s for 'Furniture' category
 products_df.write.jdbc(url=jdbc_url, table='products_table', mode=mode, properties=config)
 ```
 
@@ -372,7 +372,7 @@ Listing B15 - Write 'customers_df' into RDS
 
 ```
 # Write customers_df to table in RDS
-# Operation took 1m 44s
+# Operation took 1m 44s for 'Furniture' category
 customers_df.write.jdbc(url=jdbc_url, table='customers_table', mode=mode, properties=config)
 ```
 
@@ -390,7 +390,7 @@ Listing B17 - Write 'vine_df' into RDS
 
 ```
 # Write vine_df to table in RDS
-# Operation took 2m 10s
+# Operation took 2m 10s for 'Furniture' category
 vine_df.write.jdbc(url=jdbc_url, table='vine_table', mode=mode, properties=config)
 ```
 
@@ -406,7 +406,7 @@ Figure B9 - First 5 rows of 'vine_table'
 
 ## Appendix C - Use Google Colab to read back data from Amazon RDS, and generate bias statistics
 
-In order to avoid cluttering the main body of this report all Listings and Figures for **Deliverable 2** are shown below in this Appendix C.
+In order to avoid cluttering the main body of this report all Listings and Figures for **Deliverable 2** are shown here in this Appendix C.
 
 #### Set up PySpark Notebook on Google Colab
 
@@ -425,7 +425,7 @@ Listing C2 - Read 'review_id_table' from RDS to create 'review_id_df' dataframe 
 
 ```
 # Read review_id_df from RDS
-# Operation took 46s
+# Operation took 46s for 'Furniture' category
 review_id_df = sqlContext.read.jdbc(url=jdbc_url, table='review_id_table', properties=config)
 ```
 
@@ -433,7 +433,7 @@ Listing C3 - Read 'products_table' from RDS to create 'products_df' dataframe in
 
 ```
 # Read products_df from RDS
-# Operation took 9s
+# Operation took 9s for 'Furniture' category
 products_df = sqlContext.read.jdbc(url=jdbc_url, table='products_table', properties=config)
 ```
 
@@ -441,7 +441,7 @@ Listing C4 - Read 'customers_table' from RDS to create 'customers_df' dataframe 
 
 ```
 # Read customers_df from RDS
-# Operation took 11s
+# Operation took 11s for 'Furniture' category
 customers_df = sqlContext.read.jdbc(url=jdbc_url, table='customers_table', properties=config)
 ```
 
@@ -449,7 +449,7 @@ Listing C5 - Read 'vine_table' from RDS to create 'vine_df' dataframe in PySpark
 
 ```
 # Read vine_df from RDS
-# Operation took 28s
+# Operation took 28s for 'Furniture' category
 vine_df = sqlContext.read.jdbc(url=jdbc_url, table='vine_table', properties=config)
 ```
 
